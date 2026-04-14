@@ -6,7 +6,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Home from "./components/Home";
-import Admin from "./components/Admin";
 import PhoneAuth from "./components/Phone";
 
 function App() {
@@ -16,7 +15,6 @@ function App() {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
-
     return () => unsubscribe();
   }, []);
 
@@ -24,78 +22,18 @@ function App() {
     return <h2>Loading...</h2>;
   }
 
-  // 👑 Admin check
-  const isAdmin =
-    user && user.email === "sanjanapandey29256@gmail.com";
-
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={!user ? <Login /> : <Navigate to="/home" />} />
+        <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/home" />} />
+        <Route path="/phone" element={!user ? <PhoneAuth /> : <Navigate to="/home" />} />
 
-        {/* 🔓 Public Routes */}
-        <Route
-          path="/"
-          element={
-            !user ? (
-              <Login />
-            ) : isAdmin ? (
-              <Navigate to="/admin" />
-            ) : (
-              <Navigate to="/home" />
-            )
-          }
-        />
-
-        <Route
-          path="/signup"
-          element={
-            !user ? (
-              <Signup />
-            ) : isAdmin ? (
-              <Navigate to="/admin" />
-            ) : (
-              <Navigate to="/home" />
-            )
-          }
-        />
-
-        <Route
-          path="/phone"
-          element={
-            !user ? (
-              <PhoneAuth />
-            ) : isAdmin ? (
-              <Navigate to="/admin" />
-            ) : (
-              <Navigate to="/home" />
-            )
-          }
-        />
-
-        {/* 🔒 User Route */}
-        <Route
-          path="/home"
-          element={
-            user && !isAdmin ? (
-              <Home />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        />
-
-        {/* 🔒 Admin Route */}
-        <Route
-          path="/admin"
-          element={
-            user && isAdmin ? (
-              <Admin />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        />
-
+        {/* Protected Routes */}
+        <Route path="/home" element={user ? <Home /> : <Navigate to="/" />}>
+      
+        </Route>
       </Routes>
     </BrowserRouter>
   );
