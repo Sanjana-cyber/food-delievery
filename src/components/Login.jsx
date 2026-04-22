@@ -94,7 +94,7 @@ function Login() {
           Welcome to Sethy Burger Shop
         </h1>
         <p className="hero-sub">
-          Premium Burger Experience
+         Taste mai best 
         </p>
 
         {/* LOGIN CARD */}

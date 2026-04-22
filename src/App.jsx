@@ -6,6 +6,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Home from "./components/Home";
+import Menu from "./components/Menu";
+import Order from "./components/Order";
+import Review from "./components/Review";
 import PhoneAuth from "./components/Phone";
 
 function App() {
@@ -31,9 +34,10 @@ function App() {
         <Route path="/phone" element={!user ? <PhoneAuth /> : <Navigate to="/home" />} />
 
         {/* Protected Routes */}
-        <Route path="/home" element={user ? <Home /> : <Navigate to="/" />}>
-      
-        </Route>
+        <Route path="/home" element={user ? <Home /> : <Navigate to="/" />} />
+        <Route path="/menu" element={user ? <Menu /> : <Navigate to="/" />} />
+        <Route path="/order" element={user ? <Order /> : <Navigate to="/" />} />
+        <Route path="/reviews" element={user ? <Review /> : <Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );

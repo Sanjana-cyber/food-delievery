@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 import "./style.css";
 import latus1 from "./assets/latus.png";
 import latus2 from "./assets/latus2.png";
@@ -19,15 +18,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      navigate("/");
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
 
   useEffect(() => {
     console.log("Sethi Burger Application Initialized.");
@@ -198,24 +188,7 @@ export default function Home() {
     <>
     <div  className="home-page">
 
-      {/* HEADER */}
-      <header>
-        <nav className="navbar">
-          <div className="brand">
-            <span className="brand-name">Sethi burger</span>
-            <span className="burger-emoji">🍔</span>
-          </div>
-          <ul className="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Menu</a></li>
-            <li><a href="#">Order</a></li>
-            <li><a href="#">Reviews</a></li>
-          </ul>
-          <div className="nav-right">
-            <button onClick={handleLogout} className="logout-btn">Logout</button>
-          </div>
-        </nav>
-      </header>
+      <Navbar />
 
       <main>
         {/* Hero Section */}
