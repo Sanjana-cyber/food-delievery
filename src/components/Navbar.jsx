@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 
@@ -21,18 +21,42 @@ export default function Navbar() {
   return (
     <header>
       <nav className="navbar">
-        <div className="brand" onClick={() => navigate("/home")} style={{ cursor: "pointer" }}>
+        <div
+          className="brand"
+          onClick={() => navigate("/home")}
+          style={{ cursor: "pointer" }}
+        >
           <span className="brand-name">Sethi burger</span>
           <span className="burger-emoji">🍔</span>
         </div>
+
         <ul className="nav-links">
-          <li><a href="/home" className={isActive("/home") ? "active" : ""}>Home</a></li>
-          <li><a href="/menu" className={isActive("/menu") ? "active" : ""}>Menu</a></li>
-          <li><a href="/order" className={isActive("/order") ? "active" : ""}>Order</a></li>
-          <li><a href="/reviews" className={isActive("/reviews") ? "active" : ""}>Reviews</a></li>
+          <li>
+            <Link to="/home" className={isActive("/home") ? "active" : ""}>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/menu" className={isActive("/menu") ? "active" : ""}>
+              Menu
+            </Link>
+          </li>
+          <li>
+            <Link to="/order" className={isActive("/order") ? "active" : ""}>
+              Order
+            </Link>
+          </li>
+          <li>
+            <Link to="/reviews" className={isActive("/reviews") ? "active" : ""}>
+              Reviews
+            </Link>
+          </li>
         </ul>
+
         <div className="nav-right">
-          <button onClick={handleLogout} className="logout-btn">Logout</button>
+          <button onClick={handleLogout} className="logout-btn">
+            Logout
+          </button>
         </div>
       </nav>
     </header>
